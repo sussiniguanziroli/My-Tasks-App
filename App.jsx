@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TextInput, View, FlatList, Modal, Pressable } from 'react-native';
 import { useEffect, useState } from 'react';
+import DeleteModal from './components/DeleteModal';
 
 export default function App() {
     const [taskInput, setTaskInput] = useState("");
@@ -75,39 +76,11 @@ export default function App() {
 
             </View>
 
+            <DeleteModal modalVisible={modalVisible} handleDeleteTask={handleDeleteTask} setModalVisible={setModalVisible}/>
+
             <StatusBar style="auto" />
 
-            <Modal
-                animationType='slide'
-                visible={modalVisible}
-            >
-                <View style={styles.modalContainer}>
-                    <Pressable style={styles.closeButton} onPress={() => setModalVisible(false)}>
-                        <Text style={styles.closeText}>X</Text>
-                    </Pressable>
-                    <View styles={styles.infoContainer}>
-                        <Text style={styles.modalTitle}>Confirm Deletion?</Text>
-                        <Text style={styles.modalText}>NOMBRE DE TAREA</Text>
-                        <Text style={styles.modalDeleteWarning}>This action can not be undone!</Text>
-                    </View>
-
-                    <View style={styles.buttonsContainer}>
-                        <Pressable
-                            style={styles.cancelBtn}
-                            onPress={() => setModalVisible(false)}
-                        >
-                            <Text style={styles.cancelText}>Cancel</Text>
-                        </Pressable>
-                        <Pressable
-                            style={styles.deleteBtn}
-                            onPress={handleDeleteTask}
-                        >
-                            <Text styles={styles.deleteText}>Delete</Text>
-                        </Pressable>
-                    </View>
-                </View>
-
-            </Modal>
+            
         </>
     );
 }
@@ -174,47 +147,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 10
     },
-    modalTitle: {
-        color: "#fff",
-        fontSize: 20,
-        fontWeight: "bold"
-    },
-    modalText: {
-        color: "#fff",
-        fontSize: 14
-    },
-    modalDeleteWarning: {
-        color: "#fff",
-        fontWeight: "bold",
-        fontSize: 12
-    },
-    buttonsContainer: {
-        padding: 30,
-        flexDirection: 'row',
-        gap: 10
-    },
-    deleteBtn: {
-        backgroundColor: "#c71919",
-        width: "48%",
-        padding: 10,
-        borderRadius: 15
-    },
-    deleteText: {
-        textAlign: "center",
-        fontSize: 14,
-        color: "#fff",
-        fontWeight: 'bold'
-    },
-    cancelBtn: {
-        backgroundColor: "#C5C5C5",
-        width: "48%",
-        padding: 10,
-        borderRadius: 15
-    },
-    cancelText: {
-        textAlign: "center",
-        fontSize: 14,
-        color: "#474646"
-    },
+    
 });
 
